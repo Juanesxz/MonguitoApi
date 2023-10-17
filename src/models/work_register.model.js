@@ -14,6 +14,7 @@ const workRegisterSchema = new mongoose.Schema(
         workTitle: {
             type: String,
             required: true,
+            trim: true,
         },
         workColor: {
             type: String,
