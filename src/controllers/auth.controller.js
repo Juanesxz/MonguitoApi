@@ -1,7 +1,7 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import { createAccesToken } from "../libs/jwt.js";
-import { USERS_ROLES } from "../config.js"
+import { USERS_ROLES, USERS_STATUS } from "../config.js"
 
 
 export const register = async (req, res) => {
@@ -83,8 +83,9 @@ export const logout = (req, res) => {
 
 
 export const update = (req, res) => {
-    console.log(req.body);
-    const userFound = User.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    console.log("id actualizar", req.params._id);
+    console.log("body actualizar", req.body);
+    const userFound = User.findOneAndUpdate(req.params.id, req.body, { new: true })
     if (!userFound) return res.status(400).json({ message: "User not found" })
     res.json({ message: "User updated" })
 }
@@ -102,14 +103,13 @@ export const profile = async (req, res) => {
         updatedAt: userFound.updatedAt
 
     })
-    res.send("Profile")
 }
 
 export const profiles = async (req, res) => {
     const usersFound = await User.find()
     const userWork = usersFound.filter(user => user.role == 2)
+
     if (!usersFound) return res.status(400).json({ message: "Not found Users" })
 
     return res.json(userWork)
-    res.send("Profile")
 }
