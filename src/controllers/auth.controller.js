@@ -82,10 +82,10 @@ export const logout = (req, res) => {
 }
 
 
-export const update = (req, res) => {
-    console.log("id actualizar", req.params._id);
+export const update = async (req, res) => {
+    console.log("params", req.params);
     console.log("body actualizar", req.body);
-    const userFound = User.findOneAndUpdate(req.params.id, req.body, { new: true })
+    const userFound = await User.findByIdAndUpdate(req.params._id, req.body, { new: true })
     if (!userFound) return res.status(400).json({ message: "User not found" })
     res.json({ message: "User updated" })
 }

@@ -23,15 +23,14 @@ export const getconcepts = async (req, res) => {
 }
 
 export const updateconcepts = async (req, res) => {
-    const { id } = req.params;
-    const { conceptstitle, propertyconcept } = req.body;
-    const concepts = await concepts.findById(id);
-    if (!concepts) return res.status(404).json({ message: "Concepts not found" });
-    concepts.conceptstitle = conceptstitle;
-    concepts.propertyconcept = propertyconcept;
-    const updatedconcepts = await concepts.save();
-    res.json(updatedconcepts);
+    console.log(req.params);
+    console.log(req.body);
+    const work = await concepts.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    if (!work) return res.status(404).json({ message: "Work not found" })
+    res.json(work)
+
 }
+
 
 
 

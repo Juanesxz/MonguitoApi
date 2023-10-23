@@ -2,6 +2,14 @@ import mongoose from "mongoose";
 
 const workRegisterSchema = new mongoose.Schema(
     {
+        isHoliday: {
+            type: Boolean,
+            required: true,
+        },
+        isWeekend: {
+            type: Boolean,
+            required: true,
+        },
         workerId: {
             type: mongoose.Schema.ObjectId,
             ref: "User",
@@ -11,15 +19,6 @@ const workRegisterSchema = new mongoose.Schema(
             type: Date,
             required: true,
         },
-        workTitle: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-        workColor: {
-            type: String,
-            required: true,
-        }
     },
     {
         timestamps: true,
